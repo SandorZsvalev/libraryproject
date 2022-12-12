@@ -7,9 +7,7 @@ public class User {
 
     private String name;
     private int userId;
-    //TODO - пока не удалось добиться, чтобы Gson десериализовал из интерфейса. Временно заменил на имплементацию
-//    private HomeRepository homeRepository;
-    private HomeRepositoryImpl homeRepository;
+    private HomeRepository homeRepository;
 
     public User(String name, int userId) {
         this.name = name;
@@ -25,12 +23,7 @@ public class User {
         this.userId = userId;
     }
 
-    //TODO - здесь надо будет потом вернуть как было
-//    public void setHomeRepository(HomeRepository homeRepository) {
-//        this.homeRepository = homeRepository;
-//    }
-
-    public void setHomeRepository(HomeRepositoryImpl homeRepository) {
+    public void setHomeRepository(HomeRepository homeRepository) {
         this.homeRepository = homeRepository;
     }
 

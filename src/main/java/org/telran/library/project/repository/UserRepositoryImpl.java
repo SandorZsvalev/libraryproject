@@ -27,14 +27,17 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     public List<User> readUsersFromJson() {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(HomeRepository.class, new HomeRepositoryCreator());
-        Gson gson = gsonBuilder.create();
+
+        HomeRepositoryDeserializer deserializer = new HomeRepositoryDeserializer("type");
+        deserializer.registerBarnType("HomeRepositoryImpl", HomeRepositoryImpl.class);
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(HomeRepository.class, deserializer)
+                .create();
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/resources/user_list.json"));
             Type userListType = new TypeToken<ArrayList<User>>(){}.getType();
             List<User> list = gson.fromJson(br, userListType);
-//            list.forEach(System.out::println);
+            list.forEach(System.out::println);
             return list;
         } catch (IOException e){
             e.printStackTrace();
