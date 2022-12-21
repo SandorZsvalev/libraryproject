@@ -1,15 +1,21 @@
 package org.telran.library.project.service;
 
 import org.telran.library.project.model.User;
-import org.telran.library.project.repository.*;
+import org.telran.library.project.repository.SaveAndRead;
+import org.telran.library.project.repository.UserRepository;
+
 import java.util.List;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private List<User> usersList;
-    UserRepository userRepository = new UserRepositoryImpl();
 
-    public UserServiceImpl() {
+    UserRepository userRepository;
+    private SaveAndRead saveAndRead;
+
+    public UserServiceImpl(UserRepository userRepository, SaveAndRead saveAndRead) {
+        this.userRepository = userRepository;
+        this.saveAndRead = saveAndRead;
         usersList = userRepository.getUsersList();
     }
 
@@ -31,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void writeUserListToJson() {
-        userRepository.writeUserListToJson();
+        saveAndRead.writeUserListToRepository(usersList);
     }
 
     public User userLogIn(int id){

@@ -4,12 +4,16 @@ import org.junit.jupiter.api.Test;
 import org.telran.library.project.model.Book;
 import org.telran.library.project.repository.BookRepository;
 import org.telran.library.project.repository.BookRepositoryImpl;
+import org.telran.library.project.repository.SaveAndRead;
+import org.telran.library.project.repository.SaveAndReadImpl;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookServiceImplTest {
-    BookRepository bookRepository = new BookRepositoryImpl();
-    BookService bookService = new BookServiceImpl(bookRepository);
+    SaveAndRead saveAndRead = new SaveAndReadImpl();
+    BookRepository bookRepository = new BookRepositoryImpl(saveAndRead);
+    BookService bookService = new BookServiceImpl(bookRepository, saveAndRead);
+
     @Test
     void getAllFromBooksRepository() {
         assertArrayEquals(bookRepository.getBooks().toArray(), bookService.getAllFromBooksRepository().toArray());
@@ -17,7 +21,7 @@ class BookServiceImplTest {
 
     @Test
     void addToBookRepository() {
-        Book book = new Book("Test","Tester",1111);
+        Book book = new Book("Test", "Tester", 1111);
         assertTrue(bookService.addToBookRepository(book));
         assertFalse(bookService.addToBookRepository(null));
     }
@@ -31,8 +35,9 @@ class BookServiceImplTest {
 
     @Test
     void deleteFromBooksRepository() {
-        Book book = bookService.findBook(1043);
-        Book wrongBook = bookService.findBook(1045);
+        Book book = new Book("Test", "Tester", 1111);
+        bookService.addToBookRepository(book);
+        Book wrongBook = bookService.findBook(9999);
         assertTrue(bookService.deleteFromBooksRepository(book));
         assertFalse(bookService.deleteFromBooksRepository(wrongBook));
     }

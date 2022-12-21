@@ -2,32 +2,41 @@ package org.telran.library.project.repository;
 
 import org.telran.library.project.model.Book;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class HomeRepositoryImpl implements HomeRepository{
+public class HomeRepositoryImpl implements HomeRepository {
 
-    private List <Book> usersBooks;
-
+    SaveAndRead saveAndRead;
+    private Map<Integer, List<Book>> homeRepository;
     private String type;
 
-    public HomeRepositoryImpl() {
-        usersBooks = new ArrayList<>();
+    public HomeRepositoryImpl(SaveAndRead saveAndRead) {
+//        homeRepository = new HashMap<>();
+        homeRepository = saveAndRead.readBooksFromHomeRepository();
         this.type = "HomeRepositoryImpl";
     }
 
-    public List<Book> getUsersBooks() {
-        return usersBooks;
+    public Map<Integer, List<Book>> getHomeRepository() {
+        return homeRepository;
     }
 
-    public void setUsersBooks(List<Book> usersBooks) {
-        this.usersBooks = usersBooks;
+    public void setHomeRepository(Map<Integer, List<Book>> homeRepository) {
+        this.homeRepository = homeRepository;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "HomeRepositoryImpl{" +
-                "usersBooks=" + usersBooks +
+                "homeRepository=" + homeRepository +
                 '}';
     }
 }

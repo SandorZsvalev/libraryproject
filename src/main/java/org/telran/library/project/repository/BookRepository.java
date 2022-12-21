@@ -7,7 +7,4 @@ import java.util.List;
 public interface BookRepository {
 
     List<Book> getBooks();
-
-    List<Book> readBooksRepositoryFromJson();
-    void writeBookRepositoryToJson();
 }

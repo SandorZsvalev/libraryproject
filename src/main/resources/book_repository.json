@@ -1,1 +1,17 @@
-[{"name":"ThirdBook","author":"Sidorov","isbn":1408},{"name":"FourthBook","author":"Jones","isbn":1043},{"name":"SeventhBook","author":"Rand","isbn":5145}]
+[
+  {
+    "name": "SecondBook",
+    "author": "Petrov",
+    "isbn": 7823
+  },
+  {
+    "name": "SeventhBook",
+    "author": "Rand",
+    "isbn": 5145
+  },
+  {
+    "name": "SixthBook",
+    "author": "Blake",
+    "isbn": 9813
+  }
+]

@@ -1,3 +1,4 @@
+/*
 package org.telran.library.project.repository;
 
 import com.google.gson.*;
@@ -31,3 +32,4 @@ public class HomeRepositoryDeserializer implements JsonDeserializer <HomeReposit
         return gson.fromJson(homeRepositoryObject, homeRepositoryType);
     }
 }
+*/

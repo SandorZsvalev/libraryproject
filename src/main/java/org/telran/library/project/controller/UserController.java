@@ -1,28 +1,39 @@
 package org.telran.library.project.controller;
 
 import org.telran.library.project.model.User;
-import org.telran.library.project.repository.BookRepository;
-import org.telran.library.project.repository.BookRepositoryImpl;
-import org.telran.library.project.service.*;
+import org.telran.library.project.service.BookService;
+import org.telran.library.project.service.HomeRepositoryService;
+import org.telran.library.project.service.OrderService;
+import org.telran.library.project.service.UserService;
 
 import java.util.Scanner;
 
 public class UserController {
 
-    UserService userService = new UserServiceImpl();
-    BookRepository bookRepository = new BookRepositoryImpl();
+    UserService userService;
 
-    BookService bookService = new BookServiceImpl(bookRepository);
+    BookService bookService;
 
+    HomeRepositoryService homeRepositoryService;
 
-    public void logIn (){
+    OrderService orderService;
+
+    public UserController(UserService userService, BookService bookService, HomeRepositoryService homeRepositoryService, OrderService orderService) {
+        this.userService = userService;
+        this.bookService = bookService;
+        this.homeRepositoryService = homeRepositoryService;
+        this.orderService = orderService;
+    }
+
+    public void logIn() {
         System.out.println("Введите id пользователя");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         int id = Integer.parseInt(String.valueOf(input));
         User user = userService.userLogIn(id);
-        OrderService orderService = new OrderServiceImpl(user);
-        Controller controller = new Controller(bookService,orderService);
+        orderService.setUser(user);
+        orderService.setHomeRepositoryService(homeRepositoryService);
+        Controller controller = new Controller(bookService, orderService);
         controller.menu();
     }
 
@@ -33,6 +44,7 @@ public class UserController {
     private void saveAndExit(){
         userService.writeUserListToJson();
         bookService.writeBookRepositoryToJson();
+        homeRepositoryService.writeHomeRepository();
     }
 
     private int mainFirstMenu (){

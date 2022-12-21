@@ -1,18 +1,13 @@
 package org.telran.library.project.model;
 
-import org.telran.library.project.repository.HomeRepository;
-import org.telran.library.project.repository.HomeRepositoryImpl;
-
 public class User {
 
     private String name;
     private int userId;
-    private HomeRepository homeRepository;
 
     public User(String name, int userId) {
         this.name = name;
         this.userId = userId;
-        homeRepository = new HomeRepositoryImpl();
     }
 
     public int getUserId() {
@@ -21,14 +16,6 @@ public class User {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public void setHomeRepository(HomeRepository homeRepository) {
-        this.homeRepository = homeRepository;
-    }
-
-    public HomeRepository getHomeRepository() {
-        return homeRepository;
     }
 
     public String getName() {
@@ -44,7 +31,6 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", userId=" + userId +
-                ", homeRepository=" + homeRepository +
                 '}';
     }
 

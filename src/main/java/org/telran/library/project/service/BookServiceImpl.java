@@ -2,14 +2,19 @@ package org.telran.library.project.service;
 
 import org.telran.library.project.model.Book;
 import org.telran.library.project.repository.BookRepository;
+import org.telran.library.project.repository.SaveAndRead;
+
 import java.util.List;
 
-public class BookServiceImpl implements BookService{
+public class BookServiceImpl implements BookService {
 
     BookRepository bookRepository;
+    SaveAndRead saveAndRead;
 
-    public BookServiceImpl(BookRepository bookRepository) {
+
+    public BookServiceImpl(BookRepository bookRepository, SaveAndRead saveAndRead) {
         this.bookRepository = bookRepository;
+        this.saveAndRead = saveAndRead;
     }
 
     @Override
@@ -40,6 +45,6 @@ public class BookServiceImpl implements BookService{
     }
 
     public void writeBookRepositoryToJson() {
-        bookRepository.writeBookRepositoryToJson();
+        saveAndRead.writeBooksToRepository(bookRepository.getBooks());
     }
 }

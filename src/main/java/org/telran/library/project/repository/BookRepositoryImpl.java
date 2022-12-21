@@ -1,21 +1,14 @@
 package org.telran.library.project.repository;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import org.telran.library.project.model.Book;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BookRepositoryImpl implements BookRepository{
 
     private List<Book> books;
 
+    private SaveAndRead saveAndRead;
     //временно оставляю на случай дальнейших доработок и переделок
     private void init(){
         books.add(new Book("FirstBook","Ivanov",3765));
@@ -27,10 +20,10 @@ public class BookRepositoryImpl implements BookRepository{
         books.add(new Book("SeventhBook","Rand",5145));
     }
 
-    public BookRepositoryImpl() {
+    public BookRepositoryImpl(SaveAndRead saveAndRead) {
 //        books = new ArrayList<>();
 //        init();
-          books = readBooksRepositoryFromJson();
+        books = saveAndRead.readBooksFromRepository();
     }
 
     @Override
@@ -38,29 +31,15 @@ public class BookRepositoryImpl implements BookRepository{
         return books;
     }
 
-    public List<Book> readBooksRepositoryFromJson() {
-        Gson gson = new Gson();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/book_repository.json"));
-            Type bookListType = new TypeToken<ArrayList<Book>>(){}.getType();
-            List<Book> list = gson.fromJson(bufferedReader, bookListType);
-            return list;
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return null;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
-    public void writeBookRepositoryToJson() {
-        Gson gson = new Gson();
-        String jsonUserList = gson.toJson(books);
-        try {
-            FileWriter file = new FileWriter("src/main/resources/book_repository.json");
-            file.write(jsonUserList);
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public SaveAndRead getSaveAndRead() {
+        return saveAndRead;
     }
 
+    public void setSaveAndRead(SaveAndRead saveAndRead) {
+        this.saveAndRead = saveAndRead;
+    }
 }

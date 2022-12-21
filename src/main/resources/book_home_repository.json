@@ -1,0 +1,28 @@
+{
+  "1": [
+    {
+      "name": "FirstBook",
+      "author": "Ivanov",
+      "isbn": 3765
+    },
+    {
+      "name": "ThirdBook",
+      "author": "Sidorov",
+      "isbn": 1408
+    }
+  ],
+  "2": [
+    {
+      "name": "FourthBook",
+      "author": "Jones",
+      "isbn": 1043
+    }
+  ],
+  "3": [
+    {
+      "name": "FifthBook",
+      "author": "Smith",
+      "isbn": 7622
+    }
+  ]
+}
